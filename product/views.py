@@ -3,8 +3,8 @@ import random
 import bcrypt
 import jwt
 
-from django.views import View
-from django.http import (
+from django.views       import View
+from django.http        import (
     HttpResponse,
     JsonResponse
 )
@@ -22,7 +22,6 @@ from .models     import (
     Color,
     Image,
     ImageCategory,
-    DetailInfo
 )
 
 class ProductDetailView(View):
@@ -103,4 +102,67 @@ class DetailInfoView(View):
         
         except DetailInfo.DoesNotExist:
             return HttpResponse(status=404)
+
+class ProductListView(View):
+    def get(self, request):
+            all_products = Product.objects.prefetch_related("image_set").all()
+
+            products =[ {
+                "product_id"         : product.id,
+                "product_name"       : product.name,
+                "product_group"      : product.group,
+                "product_img"        : product.image_set.get(image_category_id=1).image_url,
+                "model_img"          : product.image_set.get(image_category_id=2).image_url,
+                "product_price"      : product.price
+            } for product in all_products ]
+
+            return JsonResponse({'products' : products}, status=200)
+
+class FilterView(View):
+    def get(self, request):
+            category_names = request.GET.getlist('category_names', None)
+            applying_names = request.GET.getlist('applying_names', None)
+
+            if applying_names == []:
+                found_products = Product.objects.select_related('category').prefetch_related('image_set').filter(category__name__in=category_names)
+
+                products = [{
+                    "product_id"         : category_product.id,
+                    "product_name"       : category_product.name,
+                    "product_group"      : category_product.group,
+                    "product_img"        : category_product.image_set.get(image_category_id=1).image_url,
+                    "model_img"          : category_product.image_set.get(image_category_id=2).image_url,
+                    "product_price"      : category_product.price
+                } for category_product in found_products ]
+
+                return JsonResponse({'products': products}, status=200)
+                    
+            if category_names == []:
+                for name in applying_names:
+                    found_products = Product.objects.select_related('applying').prefetch_related('image_set').filter(applying__name=name)
+
+                products = [{
+                    "product_id"           : applying_product.id,
+                    "product_name"         : applying_product.name,
+                    "product_group"        : applying_product.group,
+                    "product_img"          : Image.objects.select_related('product').get(product_id=applying_product.id, image_category_id=1).image_url,
+                    "model_img"            : Image.objects.select_related('product').get(product_id=applying_product.id, image_category_id=2).image_url,
+                    "product_price"        : applying_product.price
+                } for applying_product in found_products ]
+
+                return JsonResponse({'products' : products}, status=200)
+            
+
+            found_products = Product.objects.select_related('category').select_related('applying').prefetch_related('image_set').filter(category__name__in=category_names, applying__name__in=applying_names)
+
+            products = [{
+                    "product_id"            : category_applying_product.id,
+                    "product_name"          : category_applying_product.name,
+                    "product_group"         : category_applying_product.group,
+                    "product_img"           : Image.objects.select_related('product').get(product_id=category_applying_product.id, image_category_id=1).image_url,
+                    "model_img"             : Image.objects.select_related('product').get(product_id=category_applying_product.id, image_category_id=2).image_url,
+                    "product_price"         : category_applying_product.price
+            } for category_applying_product in found_products ]
+
+            return JsonResponse ({'products' : products}, status=200)
 
