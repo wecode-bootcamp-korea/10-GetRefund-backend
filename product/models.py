@@ -1,27 +1,27 @@
 from django.db import models
 
 class Product(models.Model):
-    name                    = models.CharField(max_length=50, default="")
-    group                   = models.CharField(max_length=50, default="")
-    description             = models.CharField(max_length=2000, default="")
-    note                    = models.CharField(max_length=3000, null=True)
-    volume                  = models.CharField(max_length=50, default="")
-    price                   = models.DecimalField(max_digits=10, decimal_places=4, default=0)
-    category                = models.ForeignKey('Category', on_delete=models.CASCADE, default="")
-    applying                = models.ForeignKey('Applying', on_delete=models.CASCADE, default="")
-    color                   = models.ForeignKey('Color', on_delete=models.CASCADE, default="")
+    name        = models.CharField(max_length = 50, default = "")
+    group       = models.CharField(max_length = 50, default = "")
+    description = models.CharField(max_length = 2000, default = "")
+    note        = models.CharField(max_length = 3000, null = True)
+    volume      = models.CharField(max_length = 50, default = "")
+    price       = models.DecimalField(max_digits = 10, decimal_places = 2, default = 0)
+    category    = models.ForeignKey('Category', on_delete = models.CASCADE, default = "")
+    applying    = models.ForeignKey('Applying', on_delete = models.CASCADE, default = "")
+    color       = models.ForeignKey('Color', on_delete = models.CASCADE, default = "")
 
     class Meta:
         db_table = 'products'
 
 class Category(models.Model):
-    name    = models.CharField(max_length=20, default="")
+    name = models.CharField(max_length=20, default="")
 
     class Meta:
         db_table = 'categories'
 
 class Applying(models.Model):
-    name    = models.CharField(max_length=20, default="")
+    name = models.CharField(max_length=20, default="")
 
     class Meta:
         db_table = 'applyings'
@@ -42,9 +42,8 @@ class Image(models.Model):
         db_table = 'images'
 
 class ImageCategory(models.Model):
-    name    = models.CharField(max_length=50, default="")
+    name = models.CharField(max_length=50, default="")
 
     class Meta:
         db_table = 'image_categories'
-
 
