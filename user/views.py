@@ -5,15 +5,20 @@ import re
 import datetime
 
 from django.views import View
-from django.http  import HttpResponse, JsonResponse
+from django.http  import (
+    HttpResponse, 
+    JsonResponse
+)
 
 from .models        import User             
 from .utils         import login_decorator
 from order.models   import Order, OrderStatus
 from product.models import Product
 
-import my_settings
-
+from my_settings import (
+    SECRET_KEY,
+    ALGORITHM
+)
 
 class SignUpView(View):
     def post(self, request):
@@ -36,12 +41,11 @@ class SignUpView(View):
                 email       = data['email'],
                 password    = bcrypt.hashpw(data['password'].encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
                 )
-                
+
             return JsonResponse ({'message':'SIGNUP_SUCCESS'}, status=200)
 
         except KeyError:
             return JsonResponse ({'message':'INVALID_KEY'}, status=401)
-
 
 class SignInView(View):
     def post(self, request):
@@ -52,7 +56,7 @@ class SignInView(View):
                 user = User.objects.get(email=data['email'])
 
                 if bcrypt.checkpw(data['password'].encode('utf-8'), user.password.encode('utf-8')):
-                    access_token = jwt.encode({'user_id':user.id}, my_settings.SECRET_KEY['secret'], my_settings.ALGORITHM['algorithm']).decode('utf-8')
+                    access_token = jwt.encode({'user_id':user.id}, SECRET_KEY['secret'], ALGORITHM['algorithm']).decode('utf-8')
                       
                     return JsonResponse({'access_token':access_token}, status=200)
 
@@ -100,3 +104,4 @@ class MyPage(View):
     @login_decorator
     def get(self, request):
         return JsonResponse ({'first_name': request.user.first_name})
+
