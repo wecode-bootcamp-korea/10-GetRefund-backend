@@ -20,7 +20,7 @@ class SignUpView(View):
             if User.objects.filter(email=data['email']).exists():
                 return JsonResponse({'message': 'EMAIL_ALREADY_EXISTS'}, status=400) 
 
-            if '@' or '.' not in data['email']:
+            if '@' not in data['email']:
                 return JsonResponse({'message': 'INVALID_EMAIL'}, status=401)
 
             if len(data['password']) < 8:
@@ -47,14 +47,14 @@ class SignInView(View):
 
             if User.objects.filter(email=data['email']).exists():
                 user = User.objects.get(email=data['email'])
-
+            
                 if bcrypt.checkpw(data['password'].encode('utf-8'), user.password.encode('utf-8')):
                     access_token = jwt.encode({'user_id':user.id}, my_settings.SECRET_KEY['secret'], my_settings.ALGORITHM['algorithm']).decode('utf-8')
                       
-                    return JsonResponse({'Access_Token':access_token}, status=200)
+                    return JsonResponse({'access_token':access_token}, status=200)
 
-                else:
-                    return JsonResponse({'message':'UNAUTHORIZED'}, status=401)
+                return JsonResponse({'message':'UNAUTHORIZED'}, status=401)
+            return JsonResponse({'message': 'EMAIL_DOES_NOT_EXIST'}, status=401)
 
         except KeyError:
             return JsonResponse({'message':'KEY_ERROR'}, status=400)
