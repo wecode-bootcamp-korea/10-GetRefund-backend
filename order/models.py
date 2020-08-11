@@ -13,7 +13,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
     product = models.ForeignKey(Product, on_delete=models.CASCADE, default="")
     quantity = models.IntegerField(default=0)
-    ordered_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "orders"
