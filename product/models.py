@@ -47,3 +47,15 @@ class ImageCategory(models.Model):
     class Meta:
         db_table = 'image_categories'
 
+class DetailInfo(models.Model):
+    text1 = models.CharField(max_length=50, default="")
+    text2 = models.CharField(max_length=50, default="")
+    message1 = models.CharField(max_length=100, default="")
+    message2 = models.CharField(max_length=100, default="")
+    image_url1 = models.URLField(max_length=1000, default="")
+    image_url2 = models.URLField(max_length=1000, default="")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'detail_info'
+
