@@ -20,6 +20,9 @@ from my_settings import (
     ALGORITHM
 )
 
+from .models      import User             
+
+
 class SignUpView(View):
     def post(self, request):
         try:
