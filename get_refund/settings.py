@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'user',
     'product',
+<<<<<<< HEAD
     'order'
+=======
+    'mypage'
+>>>>>>> 29e2231... [환불원정단 황수미] get_refund settings.py, urls.py 수정
 ]
 
 MIDDLEWARE = [
