@@ -59,7 +59,7 @@ class CartItemView(View):
             return JsonResponse({'message':'KEY_ERROR'}, status=400)
 
     @login_decorator
-    def patch(self, rquest):
+    def patch(self, request):
         data= json.loads(request.body)
         cart = Order.objects.filter(user_id = request.user.id, order_status_id=1).prefetch_related('product')
         cart_item = cart.get(id=data['cartitem_id'])
