@@ -3,6 +3,7 @@ import jwt
 import bcrypt
 import re
 import datetime
+import requests
 
 from django.views import View
 from django.http  import (
@@ -108,3 +109,24 @@ class MyPage(View):
     def get(self, request):
         return JsonResponse ({'first_name': request.user.first_name})
 
+=======
+class KakaoLoginView(View):
+    def get(self, request):
+        kakao_token = request.headers['Authorization']
+        request_to_kakao= requests.get('https://kapi.kakao.com/v2/user/me', headers=('Authorization':f'Bearer {kakao_token}'))
+        user_info = request_to_kakao.json()
+        print(user_info)
+        kakao_account = user_info['kakao_account']
+        kakao_email = user_info['email']
+
+        if User.objects.filter(email=kakao_email).exists():
+            user = User.objects.get(email=kakao_email)
+
+
+
+            
+
+
+                
+
+        
