@@ -22,6 +22,7 @@ from .models     import (
     Color,
     Image,
     ImageCategory,
+    DetailInfo
 )
 
 class ProductDetailView(View):
