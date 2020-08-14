@@ -5,8 +5,8 @@ import re
 import datetime
 import requests
 
-from django.views import View
-from django.http  import (
+from django.views   import View
+from django.http    import (
     HttpResponse, 
     JsonResponse
 )
@@ -16,12 +16,12 @@ from .utils         import login_decorator
 from order.models   import Order, OrderStatus
 from product.models import Product
 
-from my_settings import (
+from my_settings    import (
     SECRET_KEY,
     ALGORITHM
 )
 
-from .models      import User             
+from .models        import User             
 
 
 class SignUpView(View):
@@ -109,24 +109,21 @@ class MyPage(View):
     def get(self, request):
         return JsonResponse ({'first_name': request.user.first_name})
 
-=======
 class KakaoLoginView(View):
     def get(self, request):
         kakao_token = request.headers['Authorization']
-        request_to_kakao= requests.get('https://kapi.kakao.com/v2/user/me', headers=('Authorization':f'Bearer {kakao_token}'))
-        user_info = request_to_kakao.json()
-        print(user_info)
-        kakao_account = user_info['kakao_account']
-        kakao_email = user_info['email']
+        response = requests.get('https://kapi.kakao.com/v2/user/me?secure_resource=true', headers={'Authorization': f'Bearer {kakao_token}'})
+        kakao_user_id = response.json()['id']
 
-        if User.objects.filter(email=kakao_email).exists():
-            user = User.objects.get(email=kakao_email)
-
-
-
-            
-
-
-                
-
-        
+        try:
+            user, cr = User.objects.get_or_create(
+                email=f'{kakao_user_id}@kakao.com',
+                first_name = 'test',
+                last_name = 'test',
+                password = 'test',
+                birthday = datetime.datetime.today().date()
+            )
+            access_token = jwt.encode({"user_id":user.id}, SECRET_KEY['secret'], ALGORITHM['algorithm']).decode("utf-8")
+            return JsonResponse({'access_token': access_token}, status=200)
+        except jwt.exceptions.DecodeError:
+            return JsonResponse ({'message': 'INVALID_TOKEN'}, status=401)
