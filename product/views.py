@@ -27,7 +27,7 @@ from .models     import (
 
 class ProductDetailView(View):
     def get(self, request, product_id):
-        PRODUCT_LIMIT = 17
+        PRODUCT_LIMIT = 18
         if product_id < PRODUCT_LIMIT:
             product = Product.objects.select_related("color").prefetch_related("image_set").get(id = product_id)
             product_color  = Product.objects.select_related("color").filter(group = product.group)
