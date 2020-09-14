@@ -1,6 +1,6 @@
 ## ✅ GetSuperFluid Clone Project
 
-<img scr="https://getsuperfluid.com/">
+<img scr="https://media.vlpt.us/images/ifyouseeksoomi/post/6d5bccf7-1bcb-4a0e-8e04-ef6be2ce69e2/%E1%84%87%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5.png">
 
 이탈리안 코스메틱 브랜드 Superfluid 웹사이트(https://getsuperfluid.com/) 클론 프로젝트입니다.
 
@@ -19,6 +19,7 @@ Backend: 안솔, 황수미 <br>
 
 ## Demo
 click below to see our demo!
+
 <iframe width="768" height="430" src="https://www.youtube.com/embed/Ivby98Jlefk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Database Modeling
