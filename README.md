@@ -15,12 +15,11 @@ Backend: 안솔, 황수미 <br>
 - Database: MySQL
 - CORS(Cross Origin Resource Sharing) headers
 - AWS EC2, RDS
-
 - Co-op: Github, Slack, Trello
 
 ## Demo
 click below to see our demo!
-!youtube[Ivby98Jlefk]
+<iframe width="768" height="430" src="https://www.youtube.com/embed/Ivby98Jlefk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Database Modeling
 <img src="https://media.vlpt.us/images/ifyouseeksoomi/post/43875543-3e77-48ce-9ca0-cdf76375b90a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202020-09-14%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2011.40.38.png">
