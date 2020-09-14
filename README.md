@@ -1,7 +1,7 @@
 ## ✅ GetSuperFluid Clone Project
 
-이탈리안 코스메틱 브랜드 Superfluid 웹사이트(https://getsuperfluid.com/) 클론 프로젝트입니다. <br>
 ![Image of Superfluid](https://media.vlpt.us/images/ifyouseeksoomi/post/6d5bccf7-1bcb-4a0e-8e04-ef6be2ce69e2/%E1%84%87%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5.png) <br>
+이탈리안 코스메틱 브랜드 Superfluid 웹사이트(https://getsuperfluid.com/) 클론 프로젝트입니다. <br>
 
 Frontend: 김신영, 박예진, 최운정 <br>
 Backend: 안솔, 황수미 <br>
